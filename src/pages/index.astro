@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import ProjectCard from '../components/projects/ProjectCard.astro';
+import ProjectListing from '../components/projects/ProjectListing.astro';
+import { getProjects } from '../utils/projects';
+import { site } from '../data/site';
+const projects = await getProjects();
+const featured = projects.filter(({ data }) => data.featured).slice(0, 3);
+---
+<BaseLayout>
+  <Hero />
+  <section class="section" aria-labelledby="featured-heading">
+    <div class="section-heading"><h2 id="featured-heading">Featured Projects</h2><span class="section-number">01 / SELECTED WORK</span></div>
+    {featured.length > 0 ? <div class="project-grid">{featured.map((project) => <ProjectCard project={project} />)}</div> : <div class="featured-empty"><span aria-hidden="true">↳</span><div><h3>A space for considered work.</h3><p lang="zh-TW">精選專案尚待確認。完整的專案背景、技術細節與成果將陸續整理於此。</p></div></div>}
+  </section>
+  <ProjectListing projects={projects} />
+  <section class="section" id="skills" aria-labelledby="skills-heading">
+    <div class="section-heading"><h2 id="skills-heading">Skills / Tech Stack</h2><span class="section-number">03 / TOOLKIT</span></div>
+    {site.skills.length ? <ul class="tags">{site.skills.map((skill) => <li>{skill}</li>)}</ul> : <p lang="zh-TW">技能清單尚待本人確認。</p>}
+  </section>
+  <section class="section about" id="about" aria-labelledby="about-heading">
+    <div><span class="eyebrow">04 / BEHIND THE PROJECTS</span><h2 id="about-heading">About Me</h2></div>
+    <div class="prose"><h3>{site.name || 'The person behind the code.'}</h3><p lang="zh-TW">{site.about || '個人介紹尚待本人提供與確認。目前這個網站正在整理中，將透過真實專案分享開發過程與技術思考。'}</p></div>
+  </section>
+  <section class="section contact" id="contact" aria-labelledby="contact-heading">
+    <span class="eyebrow">05 / GET IN TOUCH</span><h2 id="contact-heading">Contact / Social</h2>
+    {site.socials.length ? <div class="actions">{site.socials.map((link) => <a class="button" href={link.url}>{link.label} ↗</a>)}</div> : <p lang="zh-TW">公開聯絡方式尚待確認。</p>}
+    <a class="source-link" href={site.repository}>Explore this portfolio’s source <span aria-hidden="true">↗</span></a>
+  </section>
+</BaseLayout>
+<style>
+  .featured-empty { display: flex; gap: var(--space-6); padding: var(--space-6) 0; max-width: 48rem; } .featured-empty > span { font: 3rem var(--font-mono); color: var(--color-accent); } .featured-empty p { margin-bottom: 0; }
+  .about { display: grid; grid-template-columns: 1fr 1.5fr; gap: var(--space-7); } .about h3 { margin-bottom: var(--space-5); }
+  .contact { padding-bottom: var(--space-8); } .source-link { display: inline-flex; align-items: center; gap: var(--space-3); min-height: 44px; margin-top: var(--space-5); color: var(--color-muted); }
+  @media (max-width: 40rem) { .about { grid-template-columns: 1fr; gap: var(--space-4); } .featured-empty { gap: var(--space-4); } }
+</style>

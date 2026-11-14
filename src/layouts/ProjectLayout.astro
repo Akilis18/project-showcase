@@ -1,0 +1,31 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ProjectGallery from '../components/projects/ProjectGallery.astro';
+import type { Project } from '../utils/projects';
+import { statusLabels } from '../utils/projects';
+import { localUrl } from '../utils/urls';
+interface Props { project: Project }
+const { project: { data } } = Astro.props;
+---
+<BaseLayout title={`${data.title} — Project Showcase`} description={data.summary}>
+  <article class="project-detail">
+    <header><span class="eyebrow">{data.category}</span><h1>{data.title}</h1><p class="summary" lang="zh-TW">{data.summary}</p><div class="detail-meta"><time datetime={data.date}>{data.date}</time><span>{statusLabels[data.status]}</span></div></header>
+    <img class="cover" src={localUrl(data.coverImage)} alt={data.coverAlt} lang="zh-TW" width="1280" height="720" fetchpriority="high" />
+    <div class="prose">
+      <section><h2>Overview</h2><p lang="zh-TW">{data.overview}</p></section>
+      <section><h2>Key Features</h2><ul lang="zh-TW">{data.features.map((feature) => <li>{feature}</li>)}</ul></section>
+      <section><h2>Tech Stack</h2><ul class="tags">{data.tags.map((tag) => <li>{tag}</li>)}</ul></section>
+      <section><h2>Development / Implementation</h2><p lang="zh-TW">{data.implementation}</p></section>
+      <section><h2>Results / Limitations</h2><p lang="zh-TW">{data.results}</p></section>
+      <section aria-label="Project links" class="actions">{data.links.github && <a class="button" href={data.links.github}>GitHub ↗</a>}{data.links.demo && <a class="button primary" href={data.links.demo}>Live Demo ↗</a>}</section>
+    </div>
+    <ProjectGallery images={data.gallery} /><a class="button back" href={localUrl('/#projects')}>← Back to Projects</a>
+  </article>
+</BaseLayout>
+<style>
+  .project-detail { padding-block: var(--space-8); } header { max-width: 55rem; margin-bottom: var(--space-7); overflow-wrap: anywhere; }
+  h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: var(--space-5); } .summary { font-size: 1.15rem; }
+  .detail-meta { display: flex; gap: var(--space-5); font: .8rem var(--font-mono); color: var(--color-focus); }
+  .cover { width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); margin-bottom: var(--space-8); }
+  .prose { margin-inline: auto; } .prose section { margin-block: var(--space-7); } .prose h2 { font-size: 1.7rem; } .prose li { margin-block: var(--space-3); } .back { margin-top: var(--space-7); }
+</style>

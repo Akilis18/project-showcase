@@ -1,0 +1,7 @@
+---
+import { localUrl } from '../../utils/urls';
+interface Props { images?: { image: string; alt: string; caption?: string }[] }
+const { images = [] } = Astro.props;
+---
+{images.length > 0 && <section class="gallery" aria-labelledby="gallery-heading"><h2 id="gallery-heading">Gallery</h2><div>{images.map((image) => <figure><a href={localUrl(image.image)} aria-label={`View full image: ${image.alt}`}><img src={localUrl(image.image)} alt={image.alt} lang="zh-TW" loading="lazy" width="960" height="540" /></a>{image.caption && <figcaption lang="zh-TW">{image.caption}</figcaption>}</figure>)}</div></section>}
+<style>.gallery > div { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--space-5); } figure { margin: 0; } img { width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: var(--color-surface); border-radius: var(--radius); } figcaption { color: var(--color-muted); font-size: .85rem; margin-top: var(--space-3); }</style>

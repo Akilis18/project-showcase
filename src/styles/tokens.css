@@ -1,0 +1,26 @@
+:root {
+  color-scheme: dark;
+  --color-bg: #0B1020;
+  --color-surface: #151C30;
+  --color-primary: #3B82F6;
+  --color-accent: #8B5CF6;
+  --color-text: #E5E7EB;
+  --color-muted: #A6B0C6;
+  --color-border: #2A3550;
+  --color-focus: #A8C8FF;
+  --color-on-primary: #FFFFFF;
+  --color-primary-strong: #245FC0;
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 5rem;
+  --radius: .8rem;
+  --content-width: 72rem;
+  --font-body: Inter, system-ui, -apple-system, 'Segoe UI', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  --font-mono: 'Cascadia Code', Consolas, monospace;
+  --transition: 200ms ease;
+}
