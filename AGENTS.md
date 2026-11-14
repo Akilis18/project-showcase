@@ -1,6 +1,6 @@
 # AGENTS.md — Project Showcase
 
-> Version: 1.0  
+> Version: 1.1  
 > Project: Project Showcase — A Scalable Developer Portfolio  
 > Purpose: Give AI coding agents consistent, repeatable instructions for maintaining and extending this repository.
 
@@ -83,15 +83,27 @@ Responsibilities:
 ## 4. Pages and navigation
 
 ### Home (`/`)
+
 Render sections in this order:
-1. Hero
-2. Featured Projects (up to three)
-3. All Projects (search, category, technology tags, project grid)
-4. Skills / Tech Stack
-5. About Me
+1. Hero (concise personal introduction)
+2. Featured Projects (up to three, presented with more detail)
+3. All Projects (compact listing with search, category, and technology filters)
+4. About Me
+5. Skills / Tech Stack
 6. Contact / Social
 
-Include a responsive navigation bar and footer. On the first version, navigation links for Projects, About, and Contact may point to home-page sections; do not introduce redundant pages.
+Include a responsive navigation bar and footer. Projects, About, and Contact link to home-page sections; do not introduce redundant pages.
+
+### Home presentation responsibilities
+
+- **Hero:** Lead with the confirmed public name, development focus, and a short introduction. Provide a primary Projects link and a secondary Contact link. Keep the introduction short enough to reach project evidence quickly on mobile; decorative artwork must not dominate the first screen. When profile facts are missing, show an explicit pending state instead of inventing a name, role, availability, or expertise.
+- **Featured Projects:** Explain selected work using verified summaries and, where available, the owner's contribution, a technical decision, and genuine project imagery. Use the existing content fields; do not introduce mandatory fields or hardcode project facts in components. Keep detailed implementation and limitations on the shared detail page. Source-based diagrams must be labeled as diagrams, not screenshots.
+- **All Projects:** Include every valid entry, including featured entries, in compact rows or compact cards. Prioritize title, category, a short summary, a small selection of technology tags, and a clear detail link. Avoid repeating the full-size featured presentation or requiring visitors to scroll past the same large images twice. Compact presentation must preserve readable text and touch-friendly targets.
+- **Filters:** Keep search and category selection easy to find. Technology choices should have less visual prominence than the projects; an accessible disclosure may keep a long tag list compact, especially on mobile. Preserve all filter behavior in section 7 and make active technology selections discoverable even when choices are collapsed.
+- **About and Skills:** Place About before Skills. About explains the person's background and interests using confirmed Traditional Chinese text. Skills support that context; project technology tags alone do not establish personal proficiency. Do not invent ratings, years of experience, or skill percentages.
+- **Contact:** Keep the full Contact / Social section at the end and make it reachable from the hero and navigation. Render only confirmed public contact destinations. A section link may lead to an explicit pending state when destinations have not been supplied.
+
+**Implementation status:** Version 1.1 presentation is implemented: a concise hero, detailed featured cards, compact listing entries, collapsible technology choices with visible selections, and About before Skills. The profile remains explicitly pending until confirmed facts are supplied. Current screenshots and checks are recorded in `docs/validation.md`; the original implementation evidence there is historical.
 
 ### Project details (`/projects/<id>/`)
 Generate every project detail page from the collection using one reusable Astro route and one shared layout. Display the following in order:
@@ -164,8 +176,10 @@ For images, store repository-relative public paths consistently; define one conv
 ## 7. Project listing behavior
 
 - Render all valid collection entries in All Projects.
-- Sort by `date` descending and then `id` ascending for a deterministic tie-breaker.
-- Feature at most three projects where `featured === true`, using the same sort order.
+- Sort All Projects by `date` descending and then `id` ascending for a deterministic tie-breaker.
+- Treat `featured` as editorial eligibility: select it based on confirmed relevance, contribution, and available evidence, not simply recency. Do not change a project's eligibility without user direction or verified context supporting that choice.
+- Feature at most three eligible projects using the existing `date` descending / `id` ascending order. Manual featured ranking is not introduced in version 1.1; adding a ranking field or changing the ordering algorithm requires explicit approval and synchronized schema, implementation, documentation, and tests. Never alter factual dates to manipulate placement.
+- Use distinct shared presentation responsibilities for detailed featured cards and compact listing entries; both must read from the same collection and link to the same detail route.
 - Search title, summary, and technology tags case-insensitively.
 - Category filter selects one category or All.
 - Technology tag filter permits multiple tags using **OR** within the selected tags.
@@ -225,6 +239,16 @@ For **adding a reusable component**:
 
 For **any change**, make the minimum necessary edit, preserve established behavior, and never claim a test passed without running it.
 
+For **implementing the version 1.1 presentation**:
+1. Inspect the existing hero, listing, cards, home route, styles, and browser tests before editing.
+2. Implement the approved section order and presentation responsibilities in section 4 using shared tokens and existing content fields.
+3. Preserve routes, URL helpers, schema, project facts, featured eligibility, and filtering semantics unless separately authorized.
+4. Update browser expectations for the new heading order; verify compact entries still expose every project and support every filter.
+5. Verify desktop and mobile presentation, keyboard access, expanded/collapsed filters if used, and the no-JavaScript fallback. All projects must remain readable without JavaScript.
+6. Refresh screenshots and validation notes only after running the relevant checks; identify older evidence as historical where needed.
+
+Documentation approval establishes the version 1.1 target; it does not itself require editing application code. A subsequent request to implement this presentation authorizes the necessary home-page and component changes within this target, without authorizing unrelated architecture, schema, or deployment changes.
+
 ## 11. Quality gates and acceptance criteria
 
 Run these checks when the necessary scripts/dependencies are present:
@@ -236,9 +260,13 @@ npm run build
 
 If the project defines `check`, `lint`, or `test` scripts, run the relevant ones as well. For Astro type/diagnostic checks, prefer the repository's configured check script; do not assume `astro check` dependencies are installed. If a command cannot run, explain why rather than reporting success.
 
+For documentation-only edits, inspect the diff and check consistency of requirements and implementation-status wording; installation, builds, and browser tests are not required when executable files and dependencies are unchanged. For presentation changes, run the configured `check`, `test`, `build`, and `test:browser` scripts when available. Run `check:publish` when changing public project links/content or preparing publication, and report network limitations honestly.
+
 Before completing work, verify:
 - No duplicate IDs or invalid project data; missing images and dead links are reported.
-- The home page contains Hero, Featured Projects, All Projects, Skills, About, and Contact.
+- The home page follows Hero → Featured Projects → compact All Projects → About → Skills → Contact.
+- The hero provides confirmed identity/context where available and links to Projects and Contact; missing personal facts remain explicit.
+- All Projects includes featured entries without duplicating the full-size featured presentation. Filters do not overwhelm the mobile listing.
 - At least three real projects appear in the initial published version.
 - Every project has a directly loadable, refresh-safe detail URL.
 - Search, category, tag filters, reset, and empty state function as specified.

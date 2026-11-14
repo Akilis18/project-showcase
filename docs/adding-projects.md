@@ -29,6 +29,8 @@ Gather:
 - GitHub and/or live demo HTTPS URLs; at least one confirmed working.
 - Whether the project should be eligible for the homepage's Featured Projects (`featured`).
 
+Select featured eligibility from confirmed relevance and evidence rather than automatically featuring the newest project. Eligible entries still use the existing date/ID order, capped at three; custom ranking is not implemented or approved. Do not change dates to influence placement.
+
 Do not claim work is completed because the user discussed a plan or prototype. For unfinished work use `in-progress` and separate implemented features from goals.
 
 ### Step 2 — Choose a canonical ID
@@ -55,6 +57,8 @@ The implementation must load all validated projects through the `projects` Conte
 - Search by title/summary/tag and category/tag filters include it.
 - If `featured` is true, it is eligible for the three most recent Featured Projects.
 - A new detail URL `/projects/<id>/` is generated under the configured base path.
+
+AGENTS.md version 1.1 is implemented: detailed Featured Projects, a compact All Projects listing, and About before Skills. `ProjectCard` renders featured work and its first verified key feature; `ProjectRow` renders all entries, including featured ones, with at most three visible technology names and a remaining-tag count. All tags remain searchable and selectable. Technology choices are collapsed initially; selected names and their count stay visible outside the disclosure. New content automatically participates in both presentations without special homepage markup.
 
 **Do not** edit `src/pages/index.astro` to hardcode a card or create `src/pages/projects/<id>.astro` for the new project.
 

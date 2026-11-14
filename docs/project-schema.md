@@ -88,6 +88,10 @@ Filtering must implement:
 
 All Projects sort: `date` descending, then `id` ascending. Featured: first three entries with `featured: true` using the same sort order.
 
+`featured` expresses editorial eligibility, not a numeric rank. Eligibility should reflect confirmed relevance, contribution, and evidence; the existing deterministic order still chooses and orders up to three eligible entries. Manual ranking and additional schema fields are not approved by the presentation revision. Never modify factual dates to change placement.
+
+AGENTS.md version 1.1 is implemented with detailed featured presentations and a compact All Projects listing, with About before Skills. This does not change the schema or filter semantics. Both presentations use the same content entries and detail URLs. Featured cards show the first verified `features` entry; compact rows show at most three technology names and a count of additional tags, while search and technology filters still use every tag. Additional context must use existing verified fields, not invented claims or new required fields.
+
 ## 7. Illustrative data shape (NOT publishable project facts)
 
 The following uses synthetic values **only to explain the data format**. Do not copy it unchanged into the public portfolio. Replace every field with verified information, image assets, and actual working URLs.
