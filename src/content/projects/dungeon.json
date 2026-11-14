@@ -1,0 +1,17 @@
+{
+  "id": "dungeon",
+  "title": "Dungeon",
+  "summary": "以 C++ 物件導向設計實作的主控台地城遊戲，包含隨機迷宮、難度選擇、角色與怪物互動、道具效果，以及文字檔存讀流程。",
+  "category": "Game",
+  "tags": ["C++", "Visual Studio"],
+  "date": "2023-05-19",
+  "status": "in-progress",
+  "featured": false,
+  "coverImage": "/images/projects/dungeon/cover.svg",
+  "coverAlt": "Dungeon 類別關係示意：Game 管理 Hero、Creature 與 Item，怪物和道具透過繼承與虛擬函式提供不同效果。",
+  "overview": "Dungeon 的公開儲存庫描述為 1112 OOP Dungeon Project，使用 C++ 與 Visual Studio 專案呈現主控台地城遊戲。程式以角色、怪物、道具與座標類別練習封裝、繼承、多型及檔案操作。日期採 GitHub 儲存庫建立日，也與 main.cpp 的建立日期註記一致；完成狀態尚待本人確認。",
+  "features": ["提供 Easy、Medium、Hard 選項，調整地圖尺寸、怪物與道具配置。", "遞迴切分牆面以產生迷宮，在可通行位置配置角色、怪物與道具。", "W、A、S、D 控制角色移動，顯示生命值、等級及經驗值。", "Creature 與 Bug、Item 與 Trigger／Snare／Replenish 呈現不同更新行為。", "提供地圖與遊戲資料的文字檔存讀入口。"],
+  "implementation": "Game::mainFlow 負責難度選擇、初始化、輸入與更新流程；Game::wallGenerate 以遞迴方式切分地圖。Hero 管理生命值、經驗及移動，Creature 與 Item 的衍生類別以虛擬函式處理互動。Position 提供座標運算與位置檢查，fstream 處理文字檔。Visual Studio solution 與 vcxproj 位於 Dungeon 目錄。",
+  "results": "公開原始碼可確認難度、迷宮、角色屬性、道具與存讀流程，但本作品集未編譯或實際遊玩此 C++ 專案。程式依賴 conio.h、_getch 與 Windows 清除畫面指令，跨平台執行需調整；loadMap 對部分道具使用 Item 基底類別重建，存讀後的類型與行為一致性需另行測試。不宣稱已完成所有遊戲或課程驗收要求。",
+  "links": { "github": "https://github.com/Akilis18/Dungeon" }
+}
