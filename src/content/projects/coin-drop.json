@@ -1,0 +1,18 @@
+{
+  "id": "coin-drop",
+  "title": "Lucky Twelve — Coin Drop",
+  "summary": "以原生網頁技術打造的單人投幣益智遊戲，掌握發射時機、穿越釘板並收集十二個數字，結合固定時間步進的物理模擬與星形拼圖。",
+  "category": "Game",
+  "tags": ["JavaScript", "HTML", "CSS", "Canvas", "SVG"],
+  "date": "2026-10-15",
+  "status": "in-progress",
+  "featured": true,
+  "coverImage": "/images/projects/coin-drop/cover.svg",
+  "coverAlt": "Coin Drop 原始碼架構示意：發射器、物理模擬、獎勵收集與十二片星形拼圖。",
+  "overview": "Lucky Twelve 是單人街機益智遊戲。玩家控制擺動發射器的投幣時機，讓硬幣穿過釘板並落入數字獎勵區，收集一至十二以完成星形拼圖；紅色陷阱會結束該局。日期採 GitHub 儲存庫建立日，完成狀態尚待本人確認。",
+  "features": ["支援按鈕、觸控與空白鍵投幣，同時只允許一枚硬幣在場。", "數字獎勵、已收集區域與紅色陷阱分別處理，重新開始會重排數字。", "提供遊戲說明、可切換的合成音效、進度顯示與減少動態效果支援。", "附有遊戲邏輯、模擬 DOM 與落點可達性驗證程式。"],
+  "implementation": "HTML、CSS 與 JavaScript 集中在 index.html，以 Canvas 繪製遊戲盤、SVG 呈現十二片星形。程式分離 GameManager、BoardGenerator、Launcher、PhysicsEngine、RewardManager、PuzzleManager、Renderer 與 SoundManager，參數集中於 CONFIG。物理模擬使用 600 × 760 虛擬座標與 1/120 秒固定時間步進，並處理獎勵區上緣、側面及底面的碰撞。",
+  "results": "公開原始碼與 README 可確認投幣、收集、勝敗、重開與說明介面的實作，並提供測試及十八個區域的可達性圖。本作品集未重新執行遊戲自身的測試，因此不將 README 的測試數字視為此次驗證成果；觸控、音效與各瀏覽器實際遊玩仍需人工檢查。",
+  "links": { "github": "https://github.com/Akilis18/coin-drop" },
+  "gallery": [{ "image": "/images/projects/coin-drop/reachability-paths.png", "alt": "原儲存庫提供的十八個獎勵與陷阱區域投幣軌跡圖。", "caption": "原始專案文件中的可達性軌跡圖；可點擊檢視完整圖片。" }]
+}

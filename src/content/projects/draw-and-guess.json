@@ -1,0 +1,17 @@
+{
+  "id": "draw-and-guess",
+  "title": "Draw & Guess",
+  "summary": "網際網路程式設計期末專案，以 Next.js 前端與 ASP.NET Core WebSocket 後端實作多人你畫我猜，包含同步畫布、聊天、輪流作畫與計分流程。",
+  "category": "Web Development",
+  "tags": ["TypeScript", "Next.js", "React", "C#", "ASP.NET Core", "WebSocket", "Canvas"],
+  "date": "2025-05-08",
+  "status": "in-progress",
+  "featured": true,
+  "coverImage": "/images/projects/draw-and-guess/cover.svg",
+  "coverAlt": "Draw and Guess 原始碼架構示意：Next.js 畫布與聊天介面，透過 WebSocket 與 ASP.NET Core 遊戲狀態交換訊息。",
+  "overview": "此儲存庫為網際網路程式設計課程的你畫我猜期末專案。前端提供作畫及猜題介面，後端維護玩家、題目、輪替與計分。日期採 GitHub 儲存庫建立日；目前依可讀原始碼整理，是否已達課程或個人預定完成範圍仍待確認。",
+  "features": ["Canvas 作畫介面與 WebSocket 畫布更新訊息，供玩家同步畫面。", "玩家名稱、聊天訊息、猜題與玩家分數清單。", "後端選擇作畫者及兩個候選題目，提供計時、跳過與換題流程。", "回合間顯示分數排名，並在玩家離線時更新遊戲狀態。"],
+  "implementation": "frontend/my-app 使用 Next.js、React 與 TypeScript，room/page.tsx 以 Canvas、React 狀態及 WebSocket 處理畫面和訊息。backend_ver2/Program.cs 使用 ASP.NET Core WebSocket 接收與廣播 JSON，Player 與 Game 模型保存玩家、分數與當局資料；題庫獨立放在 Questions。儲存庫同時保留較早期的 TCP 後端版本。",
+  "results": "公開程式可確認同步畫布、聊天、題目、計時、輪替及排行榜的訊息處理。但前端 WebSocket 位址寫為 ws://localhost:5000，無法據此宣稱已完成公開多人部署。本作品集未啟動其前後端或執行多人測試，連線穩定性、併發狀態與完整遊戲流程仍需另行驗證。",
+  "links": { "github": "https://github.com/Akilis18/IP_Final_Draw_And_Guess" }
+}

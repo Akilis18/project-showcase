@@ -1,0 +1,17 @@
+{
+  "id": "auto-car-project",
+  "title": "Auto_Car_Project",
+  "summary": "以 Raspberry Pi 車輛控制為核心的畢業專題，整合前後攝影機、手動操作、車道辨識與轉向計算，並包含語音辨識及音訊模型訓練實驗。",
+  "category": "AI / ML",
+  "tags": ["Python", "OpenCV", "NumPy", "Raspberry Pi", "PyTorch", "Whisper"],
+  "date": "2025-03-05",
+  "status": "in-progress",
+  "featured": true,
+  "coverImage": "/images/projects/auto-car-project/cover.svg",
+  "coverAlt": "Auto Car 公開原始碼流程示意：攝影機影像經車道辨識與轉向計算，送往 GPIO 車輛控制。",
+  "overview": "儲存庫 README 將此專案描述為 NTUST 畢業專題。公開程式以 Raspberry Pi GPIO 車輛控制為入口，提供手動模式與自動模式，另包含音訊 CNN 訓練與 Whisper 中文語音關鍵字辨識實驗。日期採 GitHub 儲存庫建立日，完整專題範圍與完成狀態尚待本人確認。",
+  "features": ["手動模式使用鍵盤控制前進、後退、停止及伺服轉向。", "透過前後攝影機顯示影像，按鍵擷取畫面並存檔。", "自動模式串接車道處理與 PurePursuit 類別，計算轉向及速度命令；車道偵測失敗時呼叫停止。", "提供音訊 CNN 訓練程式與 Whisper 中文語音關鍵字辨識實驗。"],
+  "implementation": "main.py 的 CarApp 以執行緒並行處理手動控制與攝影機影像，透過 OpenCV 顯示與儲存畫面。自動模式呼叫 lane_origin.process_one_frame，將車道資料交給 trajectory_follower.PurePursuit，以 NumPy 擬合曲線與計算轉向，並對伺服角度與 PWM 速度設限。語音與模型訓練程式位於 model_training，與車輛控制主程式分開。車道程式保留原作者 Addison Sears-Collins 的註記。",
+  "results": "公開程式可確認攝影機、手動控制、車道處理、轉向計算與語音實驗的結構。但 main.py 匯入的 planning.decision_maker 不在公開檔案樹中，文件列出的部分模組也未提供，不能宣稱可直接完整啟動。本作品集未在 Raspberry Pi 或實車驗證，亦無可確認的辨識準確率、行駛成效或安全性數據。",
+  "links": { "github": "https://github.com/Akilis18/Auto_Car_Project" }
+}
