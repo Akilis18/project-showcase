@@ -1,0 +1,22 @@
+---
+import type { Project } from '../../utils/projects';
+import { statusLabels } from '../../utils/projects';
+import { projectUrl } from '../../utils/urls';
+interface Props { project: Project }
+const { project: { id, data } } = Astro.props;
+---
+<article class="project-row" data-project-card data-title={data.title} data-summary={data.summary} data-tags={JSON.stringify(data.tags)} data-category={data.category}>
+  <div class="row-meta"><span>{data.category}</span><time datetime={data.date}>{data.date}</time><span>{statusLabels[data.status]}</span></div>
+  <div class="row-content"><div><h3><a href={projectUrl(id)}>{data.title} <span aria-hidden="true">↗</span></a></h3><p lang="zh-TW">{data.summary}</p></div><ul class="tags" aria-label="Technologies (first three)">{data.tags.slice(0, 3).map((tag) => <li>{tag}</li>)}{data.tags.length > 3 && <li aria-label={`${data.tags.length - 3} more technologies on the project page`}>+{data.tags.length - 3}</li>}</ul></div>
+</article>
+<style>
+  article { padding-block: var(--space-5); border-top: 1px solid var(--color-border); overflow-wrap: anywhere; }
+  article:last-child { border-bottom: 1px solid var(--color-border); }
+  .row-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--color-muted); font-size: .75rem; margin-bottom: var(--space-3); }
+  .row-meta span:first-child { color: var(--color-focus); }
+  .row-content { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+  h3 { margin-bottom: var(--space-2); } h3 a { display: inline-flex; align-items: center; gap: var(--space-4); min-height: 44px; text-decoration: none; }
+  p { font-size: .9rem; margin-bottom: 0; max-width: 48rem; }
+  .tags { margin: 0; justify-content: end; }
+  @media (max-width: 40rem) { .row-content { grid-template-columns: 1fr; gap: var(--space-3); } .tags { justify-content: start; } }
+</style>

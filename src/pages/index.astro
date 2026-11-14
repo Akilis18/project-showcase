@@ -15,13 +15,13 @@ const featured = projects.filter(({ data }) => data.featured).slice(0, 3);
     {featured.length > 0 ? <div class="project-grid">{featured.map((project) => <ProjectCard project={project} />)}</div> : <div class="featured-empty"><span aria-hidden="true">↳</span><div><h3>A space for considered work.</h3><p lang="zh-TW">精選專案尚待確認。完整的專案背景、技術細節與成果將陸續整理於此。</p></div></div>}
   </section>
   <ProjectListing projects={projects} />
-  <section class="section" id="skills" aria-labelledby="skills-heading">
-    <div class="section-heading"><h2 id="skills-heading">Skills / Tech Stack</h2><span class="section-number">03 / TOOLKIT</span></div>
-    {site.skills.length ? <ul class="tags">{site.skills.map((skill) => <li>{skill}</li>)}</ul> : <p lang="zh-TW">技能清單尚待本人確認。</p>}
-  </section>
   <section class="section about" id="about" aria-labelledby="about-heading">
-    <div><span class="eyebrow">04 / BEHIND THE PROJECTS</span><h2 id="about-heading">About Me</h2></div>
+    <div><span class="eyebrow">03 / BEHIND THE PROJECTS</span><h2 id="about-heading">About Me</h2></div>
     <div class="prose"><h3>{site.name || 'The person behind the code.'}</h3><p lang="zh-TW">{site.about || '個人介紹尚待本人提供與確認。目前這個網站正在整理中，將透過真實專案分享開發過程與技術思考。'}</p></div>
+  </section>
+  <section class="section" id="skills" aria-labelledby="skills-heading">
+    <div class="section-heading"><h2 id="skills-heading">Skills / Tech Stack</h2><span class="section-number">04 / TOOLKIT</span></div>
+    {site.skills.length ? <ul class="tags">{site.skills.map((skill) => <li>{skill}</li>)}</ul> : <p lang="zh-TW">技能清單尚待本人確認。</p>}
   </section>
   <section class="section contact" id="contact" aria-labelledby="contact-heading">
     <span class="eyebrow">05 / GET IN TOUCH</span><h2 id="contact-heading">Contact / Social</h2>

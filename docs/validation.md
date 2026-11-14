@@ -1,6 +1,16 @@
 # Validation and extensibility evidence
 
-Validated locally on 2026-11-14 with Node.js 26.13.1 and npm 11.20.0. Production workflow uses Node.js 24. No remote deployment was performed or verified.
+Validated locally on 2026-11-14 with Node.js 26.13.1 and npm 11.20.0. Production workflow uses Node.js 24. No remote deployment was performed or verified during these local implementation checks.
+
+## Version 1.1 presentation verification
+
+Implemented the approved order: Hero → Featured Projects → compact All Projects → About → Skills → Contact. The hero is shorter and links to Projects and Contact. Confirmed personal details are still unavailable and explicitly marked pending. Featured cards show an existing verified key feature; compact rows omit repeated cover images and limit visible tags without limiting search/filter data.
+
+`npm.cmd run check` passed on 23 files with zero errors, warnings or hints; `npm.cmd test` passed all three filter tests; `npm.cmd run build` generated six static pages. The updated `npm.cmd run test:browser` passed for all four projects, including the new heading order, hero Contact link, compact entries without duplicate images, initially collapsed technology choices, visible selected-tag names/count, keyboard disclosure/checkbox use, reset, and collapsed/expanded layouts at 320–1440px. Existing detail-route, gallery, image-loading, reduced-motion and no-JavaScript checks still passed. No runtime exceptions or failed requests were observed. Project data and links did not change, so the network publication check was not repeated for this presentation-only revision.
+
+The current desktop/mobile screenshot files below were refreshed for v1.1. Original content-extension hashes and results in the historical sections describe the pre-revision implementation, not the current file hashes. Screen-reader and physical-device testing remain outside the automated checks.
+
+## Original implementation verification (historical)
 
 | Check | Actual result |
 | --- | --- |

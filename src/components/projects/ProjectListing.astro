@@ -1,7 +1,7 @@
 ---
 import type { Project } from '../../utils/projects';
 import { categories } from '../../utils/projects';
-import ProjectCard from './ProjectCard.astro';
+import ProjectRow from './ProjectRow.astro';
 interface Props { projects: Project[] }
 const { projects } = Astro.props;
 const tags = [...new Set(projects.flatMap(({ data }) => data.tags))].sort();
@@ -10,17 +10,18 @@ const tags = [...new Set(projects.flatMap(({ data }) => data.tags))].sort();
   <div class="section-heading"><h2 id="projects-heading">All Projects</h2><span class="section-number">02 / EXPLORE</span></div>
   <form class="filters" data-filters hidden role="search" aria-label="Filter projects">
     <div class="filter-row"><label>Search projects<input type="search" name="query" placeholder="Title, description, technology…" /></label><label>Category<select name="category"><option value="">All categories</option>{categories.map((category) => <option value={category}>{category}</option>)}</select></label><button type="reset">Reset filters <span aria-hidden="true">↺</span></button></div>
-    {tags.length > 0 && <fieldset><legend>Technologies <span>(match any selected)</span></legend><div class="tag-controls">{tags.map((tag) => <label><input type="checkbox" name="tag" value={tag} /><span>{tag}</span></label>)}</div></fieldset>}
+    {tags.length > 0 && <details data-tag-disclosure><summary>Technologies <span data-selected-count>(0 selected)</span></summary><fieldset><legend>Match any selected technology</legend><div class="tag-controls">{tags.map((tag) => <label><input type="checkbox" name="tag" value={tag} /><span>{tag}</span></label>)}</div></fieldset></details>}
+    <p class="active-tags" data-active-tags hidden></p>
   </form>
   <noscript><p>Search and filters require JavaScript. All projects are listed below.</p></noscript>
   <p class="result-count" data-result-count role="status" aria-live="polite" aria-atomic="true">{projects.length} {projects.length === 1 ? 'project' : 'projects'}</p>
-  <div class="project-grid">{projects.map((project) => <ProjectCard project={project} />)}</div>
+  <div class="project-rows">{projects.map((project) => <ProjectRow project={project} />)}</div>
   <div class="empty" data-no-results hidden><h3>No matching projects</h3><p>Try another search or reset the filters.</p></div>
   {projects.length === 0 && <div class="empty"><h3>Projects are on their way.</h3><p lang="zh-TW">專案資料與實際畫面尚待確認，確認後將在這裡分享完整的開發紀錄。</p></div>}
 </section>
 <script>import '../../scripts/project-filter';</script>
 <style>
-  .filters { padding: var(--space-5); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); }
+  .filters { padding-bottom: var(--space-4); }
   .filter-row { display: flex; flex-wrap: wrap; align-items: end; gap: var(--space-4); }
   .filter-row label { flex: 1 1 12rem; display: grid; gap: var(--space-2); font-size: .85rem; } .filter-row label:first-child { flex-grow: 2; }
   input, select { width: 100%; min-width: 0; } fieldset { border: 0; padding: 0; margin: var(--space-5) 0 0; }
@@ -30,4 +31,9 @@ const tags = [...new Set(projects.flatMap(({ data }) => data.tags))].sort();
   .tag-controls label:has(:checked) { border-color: var(--color-primary); color: var(--color-focus); }
   .tag-controls input { width: 1rem; min-height: 1rem; accent-color: var(--color-primary); }
   .result-count { margin-block: var(--space-5); font: .8rem var(--font-mono); }
+  details { margin-top: var(--space-3); }
+  summary { width: fit-content; min-height: 44px; padding-block: var(--space-3); cursor: pointer; font-size: .85rem; }
+  summary span { color: var(--color-muted); }
+  details fieldset { margin-top: var(--space-3); }
+  .active-tags { font-size: .85rem; margin: var(--space-3) 0 0; overflow-wrap: anywhere; }
 </style>

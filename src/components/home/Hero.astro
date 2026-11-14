@@ -1,19 +1,17 @@
 ---
 import { site } from '../../data/site';
 ---
-<section class="hero" aria-labelledby="hero-title"><div>
+<section class="hero" aria-labelledby="hero-title">
   <span class="eyebrow">Developer portfolio / Selected work</span>
-  <h1 id="hero-title">Ideas into code.<br /><span>Code into projects.</span></h1>
-  <p lang="zh-TW">{site.description}<br />從想法到實作，留下每一步的思考與探索。</p>
-  <div class="actions"><a class="button primary" href="#projects">Explore projects <span aria-hidden="true">↘</span></a><a class="button" href="#about">About {site.name || 'this portfolio'}</a></div>
-</div><div class="hero-art" aria-hidden="true"><span class="art-caption">FROM CONCEPT TO COMMIT</span><div class="code-mark">&lt;<span>/</span>&gt;</div><div class="art-bottom"><span>think. build. iterate.</span><span>01 — ∞</span></div></div></section>
+  <h1 id="hero-title">{site.name || 'Projects & experiments.'}</h1>
+  <p lang="zh-TW">{site.description}</p>
+  {!site.name && <p class="pending" lang="zh-TW">公開姓名與個人介紹尚待確認。</p>}
+  <div class="actions"><a class="button primary" href="#projects">Explore projects <span aria-hidden="true">↘</span></a><a class="button" href="#contact">Contact <span aria-hidden="true">↗</span></a></div>
+</section>
 <style>
-  .hero { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; gap: var(--space-7); padding-block: 6rem; }
-  h1 { margin-bottom: var(--space-5); } h1 span { color: var(--color-muted); }
-  p { max-width: 36rem; margin-bottom: var(--space-6); }
-  .hero-art { min-height: 350px; padding: var(--space-5); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--color-border); border-radius: var(--radius); background: radial-gradient(ellipse at center, var(--color-surface), var(--color-bg)); transform: rotate(3deg); }
-  .art-caption, .art-bottom { font: .65rem var(--font-mono); color: var(--color-muted); letter-spacing: .1em; }
-  .code-mark { text-align: center; font: clamp(5rem, 10vw, 9rem) var(--font-mono); color: var(--color-focus); letter-spacing: -.12em; } .code-mark span { color: var(--color-accent); }
-  .art-bottom { display: flex; justify-content: space-between; gap: var(--space-3); }
-  @media (max-width: 55rem) { .hero { grid-template-columns: 1fr; padding-block: var(--space-8); } .hero-art { display: none; } }
+  .hero { padding-block: var(--space-7); }
+  h1 { font-size: clamp(2.25rem, 6vw, 4rem); max-width: 18ch; margin-bottom: var(--space-4); }
+  p { max-width: 40rem; margin-bottom: var(--space-4); }
+  .pending { font-size: .8rem; }
+  .actions { margin-top: var(--space-5); }
 </style>

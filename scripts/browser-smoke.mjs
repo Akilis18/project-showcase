@@ -77,7 +77,10 @@ try {
   const projectCount = await evaluate(`document.querySelectorAll('#projects [data-project-card]').length`);
   assert.ok(projectCount >= 3);
   assert.equal(projectCount, projects.length);
-  assert.deepEqual(await evaluate(`[...document.querySelectorAll('main h2')].map(x=>x.textContent)`), ['Featured Projects', 'All Projects', 'Skills / Tech Stack', 'About Me', 'Contact / Social']);
+  assert.deepEqual(await evaluate(`[...document.querySelectorAll('main h2')].map(x=>x.textContent)`), ['Featured Projects', 'All Projects', 'About Me', 'Skills / Tech Stack', 'Contact / Social']);
+  assert.equal(await evaluate(`document.querySelector('.hero a[href="#contact"]') !== null`), true);
+  assert.equal(await evaluate(`document.querySelectorAll('#projects img').length`), 0);
+  assert.equal(await evaluate(`document.querySelector('[data-tag-disclosure]').open`), false);
   assert.equal(await evaluate(`document.querySelectorAll('section:first-of-type + section [data-project-card]').length`), Math.min(3, projectCount));
   await mkdir('docs/evidence', { recursive: true });
   await writeFile('docs/evidence/home-desktop.png', Buffer.from((await send('Page.captureScreenshot', { captureBeyondViewport: true })).data, 'base64'));
@@ -93,6 +96,22 @@ try {
   await evaluate(`document.querySelector('[data-filters]').reset()`);
   await evaluate(`for(const x of document.querySelectorAll('[name=tag]')){x.checked=['Python','JavaScript'].includes(x.value)};document.querySelector('[data-filters]').dispatchEvent(new Event('change',{bubbles:true}));`);
   assert.deepEqual((await visible()).sort(), projects.filter((project)=>project.tags.some((tag)=>['Python','JavaScript'].includes(tag))).map((project)=>project.title).sort());
+  assert.equal(await evaluate(`document.querySelector('[data-selected-count]').textContent`), '(2 selected)');
+  assert.equal(await evaluate(`document.querySelector('[data-active-tags]').hidden`), false);
+  assert.equal(await evaluate(`document.querySelector('[data-active-tags]').textContent.includes('Python')`), true);
+  await evaluate(`document.querySelector('[data-tag-disclosure] summary').focus()`);
+  await send('Input.dispatchKeyEvent', { type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
+  await send('Input.dispatchKeyEvent', { type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
+  await evaluate(`new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))`);
+  assert.equal(await evaluate(`document.querySelector('[data-tag-disclosure]').open`), true);
+  await evaluate(`document.querySelector('[name=tag][value=Python]').focus()`);
+  await send('Input.dispatchKeyEvent', { type: 'keyDown', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
+  await send('Input.dispatchKeyEvent', { type: 'keyUp', key: ' ', code: 'Space', windowsVirtualKeyCode: 32 });
+  assert.equal(await evaluate(`document.querySelector('[data-selected-count]').textContent`), '(1 selected)');
+  assert.deepEqual((await visible()).sort(), projects.filter((project)=>project.tags.includes('JavaScript')).map((project)=>project.title).sort());
+  await evaluate(`document.querySelector('[data-tag-disclosure]').open=false;document.querySelector('[data-filters]').reset()`);
+  assert.equal(await evaluate(`document.querySelector('[data-selected-count]').textContent`), '(0 selected)');
+  assert.equal(await evaluate(`document.querySelector('[data-active-tags]').hidden`), true);
   await evaluate(`document.querySelector('[data-filters]').reset();document.activeElement?.blur();document.body.focus()`);
   await send('Page.navigate', { url: `${origin}${base}/` }); await new Promise((r)=>setTimeout(r,300));
   await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
@@ -101,6 +120,9 @@ try {
   for (const width of [320, 375, 768, 1440]) {
     await send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: false });
     assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, `No home overflow at ${width}px`);
+    await evaluate(`document.querySelector('[data-tag-disclosure]').open=true`);
+    assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true, `No expanded-filter overflow at ${width}px`);
+    await evaluate(`document.querySelector('[data-tag-disclosure]').open=false`);
   }
   await send('Emulation.setDeviceMetricsOverride', { width: 375, height: 900, deviceScaleFactor: 1, mobile: false });
   await evaluate(`document.activeElement?.blur()`);
