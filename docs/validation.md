@@ -4,7 +4,9 @@ Validated locally on 2026-11-14 with Node.js 26.13.1 and npm 11.20.0. Production
 
 ## Version 1.1 presentation verification
 
-Implemented the approved order: Hero → Featured Projects → compact All Projects → About → Skills → Contact. The hero is shorter and links to Projects and Contact. Confirmed personal details are still unavailable and explicitly marked pending. Featured cards show an existing verified key feature; compact rows omit repeated cover images and limit visible tags without limiting search/filter data.
+Profile update on 2026-11-15: populated About, Skills and Contact from the owner-supplied résumé using the existing site configuration, with the confirmed name also flowing to the hero. `npm.cmd run check` passed on 23 files with zero errors/warnings/hints, all three `npm.cmd test` tests passed, `npm.cmd run build` generated six pages, and `npm.cmd run test:browser` passed. Current screenshots were refreshed for the populated profile. Original project data, routes, schema and deployment configuration were unchanged; network project-link checks were not repeated for this profile-only update.
+
+Implemented the approved order: Hero → Featured Projects → compact All Projects → About → Skills → Contact. The hero is shorter and links to Projects and Contact. Personal details were pending during the original presentation revision and were subsequently supplied in the résumé update above. Featured cards show an existing verified key feature; compact rows omit repeated cover images and limit visible tags without limiting search/filter data.
 
 `npm.cmd run check` passed on 23 files with zero errors, warnings or hints; `npm.cmd test` passed all three filter tests; `npm.cmd run build` generated six static pages. The updated `npm.cmd run test:browser` passed for all four projects, including the new heading order, hero Contact link, compact entries without duplicate images, initially collapsed technology choices, visible selected-tag names/count, keyboard disclosure/checkbox use, reset, and collapsed/expanded layouts at 320–1440px. Existing detail-route, gallery, image-loading, reduced-motion and no-JavaScript checks still passed. No runtime exceptions or failed requests were observed. Project data and links did not change, so the network publication check was not repeated for this presentation-only revision.
 
@@ -37,7 +39,7 @@ Verified:
 - No horizontal overflow at home widths 320, 375, 768 and 1440px and detail widths 320 and 1440px.
 - Keyboard Tab reaches the visible skip link, reduced motion disables smooth scrolling, and all cards remain available with scripts disabled while filter controls remain hidden.
 
-Screenshots: [desktop homepage](evidence/home-desktop.png), [mobile homepage](evidence/home-mobile.png). These show the actual portfolio, including explicitly pending profile details. Browser automation is not a full accessibility audit or validation of the showcased applications. Screen-reader experience and physical-device touch use were not manually tested.
+Screenshots: [desktop homepage](evidence/home-desktop.png), [mobile homepage](evidence/home-mobile.png). These show the actual portfolio with the résumé-based profile update. Browser automation is not a full accessibility audit or validation of the showcased applications. Screen-reader experience and physical-device touch use were not manually tested.
 
 ## A. Fourth real project through content
 
@@ -67,7 +69,7 @@ Coin Drop uses its genuine repository trajectory figure. Auto Car, Draw & Guess 
 
 ## Remaining owner input and deployment
 
-- Confirm public name, About text, skills and contact/social links in `src/data/site.ts`.
+- Profile content is supplied from the owner's résumé; additional public social links may be added when confirmed.
 - Confirm project completion statuses; all four remain `in-progress` and disclose verification limits.
 - Review source-based SVG cover diagrams; genuine screenshots may replace or supplement them when available.
 - Enable GitHub Actions as the Pages source, commit and push the reviewed files, then verify the successful workflow's published URL. Expected address: `https://Akilis18.github.io/project-showcase/` (not verified live).
